@@ -51,4 +51,3 @@ Thumbs.db
 # ==========================
 # No ignoramos nada de código fuente, solo compilados y binarios
 # Así cualquier JDK puede compilar sin conflicto
-/nbproject/private/
