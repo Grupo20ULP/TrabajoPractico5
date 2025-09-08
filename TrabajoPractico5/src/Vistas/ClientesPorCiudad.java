@@ -4,17 +4,31 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import AccesoDatos.DirectorioTelefonico;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Federico_Galan abate
  */
 public class ClientesPorCiudad extends javax.swing.JInternalFrame {
 
+    DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int f, int c){
+            return false;
+        }
+    };
+    
     /**
      * Creates new form ClientesPorCiudad
      */
     public ClientesPorCiudad() {
         initComponents();
+        armarComboCiudades();
+        armarTabla();
     }
 
     /**
@@ -59,6 +73,11 @@ public class ClientesPorCiudad extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtabClientes);
 
         jcbCiudades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCiudades.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbCiudadesItemStateChanged(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +152,76 @@ public class ClientesPorCiudad extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jcbCiudadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbCiudadesItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            String ciudadSeleccionada = (String) jcbCiudades.getSelectedItem();
+            if (ciudadSeleccionada != null) {
+                buscarContactosPorCiudad(ciudadSeleccionada);
+            }
+        }
+    }//GEN-LAST:event_jcbCiudadesItemStateChanged
+
+    // Método para llenar el combobox con las ciudades disponibles
+    public void armarComboCiudades(){
+        jcbCiudades.removeAllItems();
+        for (String ciudad : AccesoDatos.DirectorioTelefonico.CIUDADES) {
+            jcbCiudades.addItem(ciudad);
+        }
+    }
+
+    // Método para configurar la tabla
+    public void armarTabla(){
+        modeloTabla.addColumn("DNI");
+        modeloTabla.addColumn("Apellido");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Direccion");
+        modeloTabla.addColumn("Ciudad");
+        modeloTabla.addColumn("Telefono");
+        jtabClientes.setModel(modeloTabla);
+    }
+
+    // Método para limpiar la tabla
+    public void limpiarTabla(){
+        modeloTabla.setRowCount(0);
+    }
+
+    // Método para buscar contactos por ciudad y mostrarlos en la tabla
+    public void buscarContactosPorCiudad(String ciudad){
+        limpiarTabla();
+        if (ciudad != null && !ciudad.isEmpty()) {
+            ArrayList<Contacto> contactos = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContactosPorCiudad(ciudad);
+            
+            for (Contacto contacto : contactos) {
+                // Buscar el teléfono asociado a este contacto
+                Long telefono = buscarTelefonoPorContacto(contacto);
+                
+                if (telefono != null) {
+                    Object[] fila = {
+                        contacto.getDni(),
+                        contacto.getApellido(),
+                        contacto.getNombre(),
+                        contacto.getDireccion(),
+                        contacto.getCiudad(),
+                        telefono
+                    };
+                    modeloTabla.addRow(fila);
+                }
+            }
+        }
+    }
+
+    // Método auxiliar para buscar el teléfono asociado a un contacto
+    private Long buscarTelefonoPorContacto(Contacto contactoBuscado) {
+        // Necesitamos acceder al TreeMap de contactos
+        // Esto requiere agregar un método getter en DirectorioTelefonico
+        for (java.util.Map.Entry<Long, Contacto> entry : AccesoDatos.DirectorioTelefonico.DIRECTORIO.getAgenda().entrySet()) {
+            if (entry.getValue().equals(contactoBuscado)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

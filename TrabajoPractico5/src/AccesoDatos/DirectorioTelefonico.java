@@ -77,6 +77,9 @@ public class DirectorioTelefonico {
         return false;
     }
 }
+    public TreeMap<Long, Contacto> getAgenda() {
+    return agenda;
+    }   
     
 }
 
