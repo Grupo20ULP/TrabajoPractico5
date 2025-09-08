@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class BorrarCliente extends javax.swing.JInternalFrame {
 
