@@ -6,7 +6,7 @@ package Vistas;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class ClientesPorCiudad extends javax.swing.JInternalFrame {
 
