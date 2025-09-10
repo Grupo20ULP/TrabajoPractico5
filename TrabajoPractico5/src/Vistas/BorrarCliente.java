@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,16 +14,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BorrarCliente extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modeloTabla = new DefaultTableModel(){
+    private DefaultListModel<String> modelolista = new DefaultListModel<>();
+    DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
-        public boolean isCellEditable(int f, int c){
+        public boolean isCellEditable (int f, int c) {
             return false;
         }
-        
     };
-    public BorrarCliente() {
+
+    public BorrarCliente () {
         initComponents();
         armarTabla();
+        llenarlista();
+        jlCliente.setModel(modelolista);
     }
 
     /**
@@ -51,10 +56,30 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("DNI:");
 
+        jtfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfDniKeyReleased(evt);
+            }
+        });
+
         jlCliente.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " ", " ", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jlCliente.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jlClienteAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jlCliente.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jlClienteValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(jlCliente);
 
@@ -102,6 +127,11 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtabClientes);
 
         jbBorrarCliente.setText("Borrar Cliente/s");
+        jbBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarClienteActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -158,8 +188,24 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jbBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbBorrarClienteActionPerformed
 
-    public void armarTabla(){
+    private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
+        llenarlista();
+        // TODO add your handling code here
+    }//GEN-LAST:event_jtfDniKeyReleased
+
+    private void jlClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlClienteValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlClienteValueChanged
+
+    private void jlClienteAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jlClienteAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlClienteAncestorAdded
+
+    public void armarTabla () {
         modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("Apellido");
         modeloTabla.addColumn("Nombre");
@@ -168,7 +214,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Telefono");
         jtabClientes.setModel(modeloTabla);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
@@ -181,4 +227,15 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtabClientes;
     private javax.swing.JTextField jtfDni;
     // End of variables declaration//GEN-END:variables
+    private void llenarlista () {
+        modelolista.clear();
+        String filtro = jtfDni.getText().
+            trim();
+        for (Contacto c : MenuPrincipal.listaContactos) {
+            if (String.valueOf(c.getDni()).
+                contains(filtro)) {
+                modelolista.addElement(String.valueOf(c.getDni()));
+            }
+        }
+    }
 }
