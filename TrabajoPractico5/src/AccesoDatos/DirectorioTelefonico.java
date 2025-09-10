@@ -11,13 +11,19 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.lang.Long;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Federico_Galan abate
  */
 public class DirectorioTelefonico {
+
     public static TreeMap<Long,Contacto> agenda = new TreeMap<>();
+
+
+    private TreeMap<Long, Contacto> agenda = new TreeMap<>();
+
     public static final DirectorioTelefonico DIRECTORIO = new DirectorioTelefonico();
     public static final Set<String> CIUDADES = new TreeSet<String>();
 
@@ -27,8 +33,8 @@ public class DirectorioTelefonico {
         CIUDADES.add("Mendoza");
         CIUDADES.add("Cordoba");
     }
-    
-    public boolean agregarContacto(Long telefono,Contacto contacto){
+
+    public boolean agregarContacto(Long telefono, Contacto contacto) {
         if (telefono == null || contacto == null) {
             return false;
         }
@@ -38,12 +44,12 @@ public class DirectorioTelefonico {
         agenda.put(telefono, contacto);
         return true;
     }
-    
-    public Contacto buscarContacto(Long telefono){
+
+    public Contacto buscarContacto(Long telefono) {
         return agenda.get(telefono);
     }
-    
-    public Set<Long> BuscarTelefonoPorApellido(String apellido){
+
+    public Set<Long> BuscarTelefonoPorApellido(String apellido) {
         Set<Long> numeros = new TreeSet<>();
         if (apellido == null) {
             return numeros;
@@ -55,10 +61,10 @@ public class DirectorioTelefonico {
         }
         return numeros;
     }
-    
+
     public ArrayList<Contacto> buscarContactosPorCiudad(String ciudad) {
         ArrayList<Contacto> list = new ArrayList<>();
-        if (ciudad == null){
+        if (ciudad == null) {
             return list;
         }
         for (Contacto c : agenda.values()) {
@@ -68,17 +74,28 @@ public class DirectorioTelefonico {
         }
         return list;
     }
-    
+
     public boolean borrarContacto(Long telefono) {
-    if (agenda.containsKey(telefono)) {
-        agenda.remove(telefono);
-        return true;
-    } else {
-        return false;
+        if (agenda.containsKey(telefono)) {
+            agenda.remove(telefono);
+            return true;
+        } else {
+            return false;
+        }
     }
-}
-    
-}
 
-    
+    public List<Contacto> buscarContactosPorApellido(String apellido) {
+        /*Devuelve los contactos que coincidan con el jtfApellido.*/
+        List<Contacto> lista = new ArrayList<>();
+        if (apellido == null) {
+            return lista;
+        }
+        for (Contacto c : agenda.values()) {
+            if (c.getApellido().equalsIgnoreCase(apellido)) {
+                lista.add(c);
+            }
+        }
+        return lista;
+    }
 
+}

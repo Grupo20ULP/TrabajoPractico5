@@ -24,6 +24,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
      */
     public BuscarCliente() {
         initComponents();
+
     }
 
     /**
@@ -76,6 +77,17 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Domicilio:");
+
+        jtfApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfApellidoActionPerformed(evt);
+            }
+        });
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,6 +242,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         
         String texto = jtfTelefono.getText().trim();
 
+
     if (!texto.isEmpty()) {
         try {
             long tel = Long.parseLong(texto); // convierto el texto a número
@@ -244,20 +257,45 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                 jtfCiudad.setText(c.getCiudad());
             } else {
                 // Si no existe, limpio o muestro mensaje
+
+        if (!texto.isEmpty()) {
+            try {
+                long tel = Long.parseLong(texto); // convierto el texto a número
+                Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
+
+                if (c != null) {
+                    // Si existe el contacto, muestro los datos en los JTextField
+                    jtfDni.setText(String.valueOf(c.getDni()));
+                    jtfNombre.setText(c.getNombre());
+                    jtfApellido.setText(c.getApellido());
+                    jtfDomicilio.setText(c.getDireccion());
+                    jtfCiudad.setText(c.getCiudad());
+                } else {
+                    // Si no existe, limpio o muestro mensaje
+                    jtfDni.setText("");
+                    jtfNombre.setText("");
+                    jtfApellido.setText("");
+                    jtfDomicilio.setText("");
+                    jtfCiudad.setText("");
+                }
+            } catch (NumberFormatException ex) {
+                // Si el usuario escribió letras u otra cosa
+
                 jtfDni.setText("");
                 jtfNombre.setText("");
                 jtfApellido.setText("");
                 jtfDomicilio.setText("");
                 jtfCiudad.setText("");
             }
-        } catch (NumberFormatException ex) {
-            // Si el usuario escribió letras u otra cosa
+        } else {
+            // Si borró todo el campo, limpio también
             jtfDni.setText("");
             jtfNombre.setText("");
             jtfApellido.setText("");
             jtfDomicilio.setText("");
             jtfCiudad.setText("");
         }
+
     } else {
         // Si borró todo el campo, limpio también
         jtfDni.setText("");
@@ -267,11 +305,42 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jtfCiudad.setText("");
     }
     jlTelefonos.setModel(listModel);
+
+
     }//GEN-LAST:event_jtfTelefonoKeyReleased
 
     private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jlTelefonosValueChanged
+
+    private void jtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfApellidoActionPerformed
+
+    private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
+        // jtfApellido
+        String apellido = jtfApellido.getText().trim();
+
+        if (!apellido.isEmpty()) {
+            // Buscamos los contactos que coincidan con ese apellido
+            java.util.List<Entidad.Contacto> resultados
+                    = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContactosPorApellido(apellido);
+            if (!resultados.isEmpty()) {
+                javax.swing.DefaultListModel<String> modelo = new javax.swing.DefaultListModel<>();
+                for (Entidad.Contacto c : resultados) {
+                    modelo.addElement(c.getTelefono() + " - " + c.getNombre() + " " + c.getApellido());
+                }
+                jlTelefonos.setModel(modelo);
+            } else {
+                // Si no hay coincidencias, limpio la lista
+                jlTelefonos.setModel(new javax.swing.DefaultListModel<>());
+            }
+        } else {
+            // Si se borra el apellido, limpio la lista
+            jlTelefonos.setModel(new javax.swing.DefaultListModel<>());
+        }
+
+    }//GEN-LAST:event_jtfApellidoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
