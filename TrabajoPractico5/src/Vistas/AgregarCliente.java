@@ -14,9 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AgregarCliente extends javax.swing.JInternalFrame {
 
-    
-    
-    public AgregarCliente() {
+    public AgregarCliente () {
         initComponents();
         armarCombo();
     }
@@ -236,35 +234,40 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     private void jbGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarClienteActionPerformed
         // TODO add your handling code here:
         Contacto nuevoCliente = new Contacto();
-        
+        MenuPrincipal.listaContactos.add(nuevoCliente);
         if (checkCamposVacios()) {
-            JOptionPane.showMessageDialog(this, "Lo campos no pueden estar vacios");
+            JOptionPane.showMessageDialog(this,
+                "Lo campos no pueden estar vacios");
             return;
         }
-        
-        try{
-            int dni =Integer.parseInt(jtfDni.getText());
+        try {
+            int dni = Integer.parseInt(jtfDni.getText());
             Long telefono = Long.parseLong(jtfTelefono.getText());
             String nombre = jtfNombre.getText();
             String apellido = jtfApellido.getText();
             String ciudad = (String) jcbCiudad.getSelectedItem();
             String direccion = jtfDomicilio.getText();
-
             nuevoCliente.setDni(dni);
             nuevoCliente.setNombre(nombre);
             nuevoCliente.setApellido(apellido);
             nuevoCliente.setCiudad(ciudad);
             nuevoCliente.setDireccion(direccion);
             //nuevoCliente.setTelefono(telefono);
-            boolean ok = AccesoDatos.DirectorioTelefonico.DIRECTORIO.agregarContacto(telefono, nuevoCliente);
-            if (!ok) {
-                javax.swing.JOptionPane.showMessageDialog(this, "El telefono ya existe");
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Contacto guardado");
+            boolean ok = AccesoDatos.DirectorioTelefonico.DIRECTORIO.
+                agregarContacto(telefono, nuevoCliente);
+            if ( ! ok) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "El telefono ya existe");
+            }
+            else {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Contacto guardado");
                 limpiar();
             }
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "Dni y telefono tiene que ser un numero");
+        }
+        catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                "Dni y telefono tiene que ser un numero");
         }
     }//GEN-LAST:event_jbGuardarClienteActionPerformed
 
@@ -272,7 +275,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbCiudadActionPerformed
 
-    public void limpiar(){
+    public void limpiar () {
         jtfDni.setText("");
         jtfNombre.setText("");
         jtfApellido.setText("");
@@ -280,23 +283,28 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
         jtfDomicilio.setText("");
         jtfTelefono.setText("");
     }
-    
-    public void armarCombo(){
+
+    public void armarCombo () {
         jcbCiudad.removeAllItems();
         for (String c : AccesoDatos.DirectorioTelefonico.CIUDADES) {
-            jcbCiudad.addItem(c);            
+            jcbCiudad.addItem(c);
         }
     }
-    
-    public boolean checkCamposVacios (){
-        return jtfDni.getText().trim().isEmpty() ||
-           jtfNombre.getText().trim().isEmpty() ||
-           jtfApellido.getText().trim().isEmpty() ||
-           jtfDomicilio.getText().trim().isEmpty() ||
-           jtfTelefono.getText().trim().isEmpty() ||
-           jcbCiudad.getSelectedItem()==null;
+
+    public boolean checkCamposVacios () {
+        return jtfDni.getText().
+            trim().
+            isEmpty() || jtfNombre.getText().
+                trim().
+                isEmpty() || jtfApellido.getText().
+                trim().
+                isEmpty() || jtfDomicilio.getText().
+                trim().
+                isEmpty() || jtfTelefono.getText().
+                trim().
+                isEmpty() || jcbCiudad.getSelectedItem() == null;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
@@ -319,5 +327,3 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfTelefono;
     // End of variables declaration//GEN-END:variables
 }
-
-
