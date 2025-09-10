@@ -6,7 +6,7 @@ package Vistas;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
 

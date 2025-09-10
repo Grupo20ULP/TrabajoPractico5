@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class DirectorioTelefonico {
 

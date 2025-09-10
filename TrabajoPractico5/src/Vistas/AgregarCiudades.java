@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class AgregarCiudades extends javax.swing.JInternalFrame {
 
