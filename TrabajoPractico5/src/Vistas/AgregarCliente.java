@@ -255,7 +255,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             nuevoCliente.setApellido(apellido);
             nuevoCliente.setCiudad(ciudad);
             nuevoCliente.setDireccion(direccion);
-            //nuevoCliente.setTelefono(telefono);
+            nuevoCliente.setTelefono(telefono);
             boolean ok = AccesoDatos.DirectorioTelefonico.DIRECTORIO.agregarContacto(telefono, nuevoCliente);
             if (!ok) {
                 javax.swing.JOptionPane.showMessageDialog(this, "El telefono ya existe");
