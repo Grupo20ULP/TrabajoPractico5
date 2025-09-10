@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AgregarCliente extends javax.swing.JInternalFrame {
 
-    
+     
     
     public AgregarCliente() {
         initComponents();
