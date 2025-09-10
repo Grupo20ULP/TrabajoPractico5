@@ -51,3 +51,8 @@ Thumbs.db
 # ==========================
 # No ignoramos nada de código fuente, solo compilados y binarios
 # Así cualquier JDK puede compilar sin conflicto
+<<<<<<< Updated upstream
+=======
+/TrabajoPractico5/nbproject/private/
+nbproject/private/ 
+>>>>>>> Stashed changes

@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class AgregarCliente extends javax.swing.JInternalFrame {
 

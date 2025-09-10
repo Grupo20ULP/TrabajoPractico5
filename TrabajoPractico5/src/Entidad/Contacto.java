@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan abate
  */
 public class Contacto implements Comparable<Contacto> {
 
