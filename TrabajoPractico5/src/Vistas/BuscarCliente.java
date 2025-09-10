@@ -4,12 +4,21 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Federico_Galan abate
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
 
+    private DefaultListModel<String> listModel = new DefaultListModel();
+    private TreeSet<Contacto> telefonosBase = new TreeSet<>();
     /**
      * Creates new form BuscarCliente
      */
@@ -225,7 +234,29 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private void jtfTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyReleased
         // TODO add your handling code here:
+        for (Long tel : AccesoDatos.DirectorioTelefonico.agenda.keySet()) {
+            if (tel.toString().contains(jtfTelefono.getText())) {
+                listModel.addElement(tel.toString());
+            }
+        }
+        
         String texto = jtfTelefono.getText().trim();
+
+
+    if (!texto.isEmpty()) {
+        try {
+            long tel = Long.parseLong(texto); // convierto el texto a número
+            Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
+            
+            if (c != null) {
+                // Si existe el contacto, muestro los datos en los JTextField
+                jtfDni.setText(String.valueOf(c.getDni()));
+                jtfNombre.setText(c.getNombre());
+                jtfApellido.setText(c.getApellido());
+                jtfDomicilio.setText(c.getDireccion());
+                jtfCiudad.setText(c.getCiudad());
+            } else {
+                // Si no existe, limpio o muestro mensaje
 
         if (!texto.isEmpty()) {
             try {
@@ -249,6 +280,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                 }
             } catch (NumberFormatException ex) {
                 // Si el usuario escribió letras u otra cosa
+
                 jtfDni.setText("");
                 jtfNombre.setText("");
                 jtfApellido.setText("");
@@ -263,6 +295,18 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
             jtfDomicilio.setText("");
             jtfCiudad.setText("");
         }
+
+    } else {
+        // Si borró todo el campo, limpio también
+        jtfDni.setText("");
+        jtfNombre.setText("");
+        jtfApellido.setText("");
+        jtfDomicilio.setText("");
+        jtfCiudad.setText("");
+    }
+    jlTelefonos.setModel(listModel);
+
+
     }//GEN-LAST:event_jtfTelefonoKeyReleased
 
     private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged

@@ -19,7 +19,11 @@ import java.util.List;
  */
 public class DirectorioTelefonico {
 
+    public static TreeMap<Long,Contacto> agenda = new TreeMap<>();
+
+
     private TreeMap<Long, Contacto> agenda = new TreeMap<>();
+
     public static final DirectorioTelefonico DIRECTORIO = new DirectorioTelefonico();
     public static final Set<String> CIUDADES = new TreeSet<String>();
 
