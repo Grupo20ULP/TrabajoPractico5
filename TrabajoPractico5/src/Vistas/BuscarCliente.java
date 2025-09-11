@@ -4,17 +4,25 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import Vistas.MenuPrincipal;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Federico_Galan abate
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
 
+    private DefaultListModel<String> modeloLista = new DefaultListModel<>();
     /**
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
         initComponents();
+        llenarLista();
+        jlTelefonos.setModel(modeloLista);
+        
     }
 
     /**
@@ -127,7 +135,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         });
 
         jlTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { " ", " ", " " };
+            String[] strings = { "", "", "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -212,8 +220,9 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jtfTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyReleased
-        // TODO add your handling code here:
-        String texto = jtfTelefono.getText().trim();
+//         TODO add your handling code here:
+    llenarLista();
+    String texto = jtfTelefono.getText().trim();
 
     if (!texto.isEmpty()) {
         try {
@@ -251,12 +260,22 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jtfDomicilio.setText("");
         jtfCiudad.setText("");
     }
+    
     }//GEN-LAST:event_jtfTelefonoKeyReleased
 
     private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jlTelefonosValueChanged
 
+    private void llenarLista () {
+        modeloLista.clear();
+        String tel = jtfTelefono.getText();
+        for (Contacto c : MenuPrincipal.listaContactos) {
+            if (c.getTelefono().toString().startsWith(tel)) {
+                modeloLista.addElement(c.getTelefono().toString());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -279,3 +298,4 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfTelefono;
     // End of variables declaration//GEN-END:variables
 }
+
