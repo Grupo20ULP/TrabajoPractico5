@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author Federico_Galan abate
  */
-public class Contacto {
+public class Contacto implements Comparable<Contacto>{
     private int dni;
     private String nombre;
     private String apellido;
@@ -30,6 +30,12 @@ public class Contacto {
     
 
     public Contacto() {
+    }
+
+    @Override
+    public int compareTo (Contacto o) {
+        return Integer.compare(this.dni, o.dni);
+
     }
 
     public int getDni() {

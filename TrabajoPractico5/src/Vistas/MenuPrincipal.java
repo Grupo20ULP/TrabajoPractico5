@@ -4,11 +4,19 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import java.util.TreeSet;
 /**
  *
  * @author Federico_Galan abate
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+    public static TreeSet<Contacto> listaContactos = new TreeSet<>();
+        static {
+        listaContactos.add(new Contacto(12345678, "Perez", "Juan", "San Martin 123", "San Luis", 123651198l));
+        listaContactos.add(new Contacto(87654321, "Gomez", "Maria", "Belgrano 456", "Villa Mercedes", 2657501242l));
+        listaContactos.add(new Contacto(45678912, "Lopez", "Carlos", "Mitre 789", "Merlo", 2657501599l));
+    }
 
     /**
      * Creates new form MenuPrincipal

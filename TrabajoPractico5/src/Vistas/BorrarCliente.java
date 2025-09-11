@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,16 +14,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BorrarCliente extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modeloTabla = new DefaultTableModel(){
+    private DefaultListModel<String> modelolista = new DefaultListModel<>();
+    DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
-        public boolean isCellEditable(int f, int c){
+        public boolean isCellEditable (int f, int c) {
             return false;
         }
-        
     };
-    public BorrarCliente() {
+
+    public BorrarCliente () {
         initComponents();
         armarTabla();
+        llenarlista();
+        jlCliente.setModel(modelolista);
     }
 
     /**
@@ -50,6 +55,17 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("DNI:");
+
+        jtfDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfDniActionPerformed(evt);
+            }
+        });
+        jtfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfDniKeyReleased(evt);
+            }
+        });
 
         jlCliente.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " ", " ", " " };
@@ -158,8 +174,23 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jtfDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfDniActionPerformed
 
-    public void armarTabla(){
+    private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
+// TODO add your handling code here:
+        llenarlista();
+//        String filtrodni = jtfDni.getText().
+//            trim();
+//        modelolista.clear();
+//        for (Contacto cucu : MenuPrincipal.listaContactos) {
+//            if (String.valueOf(cucu.getDni()).startsWith(filtrodni)) {
+//                modelolista.addElement(String.valueOf(cucu.getDni()));
+//            }
+//        }
+    }//GEN-LAST:event_jtfDniKeyReleased
+    public void armarTabla () {
         modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("Apellido");
         modeloTabla.addColumn("Nombre");
@@ -168,7 +199,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Telefono");
         jtabClientes.setModel(modeloTabla);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
@@ -181,4 +212,15 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtabClientes;
     private javax.swing.JTextField jtfDni;
     // End of variables declaration//GEN-END:variables
+ private void llenarlista () {
+        modelolista.clear();
+        String filtro = jtfDni.getText().
+            trim();
+        for (Contacto c : MenuPrincipal.listaContactos) {
+            if (String.valueOf(c.getDni()).
+                startsWith(filtro)) {
+                modelolista.addElement(String.valueOf(c.getDni()));
+            }
+        }
+    }
 }
