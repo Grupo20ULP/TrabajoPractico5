@@ -13,9 +13,18 @@ import java.util.TreeSet;
 public class MenuPrincipal extends javax.swing.JFrame {
     public static TreeSet<Contacto> listaContactos = new TreeSet<>();
         static {
-        listaContactos.add(new Contacto(12345678, "Perez", "Juan", "San Martin 123", "San Luis", 123651198l));
-        listaContactos.add(new Contacto(87654321, "Gomez", "Maria", "Belgrano 456", "Villa Mercedes", 2657501242l));
-        listaContactos.add(new Contacto(45678912, "Lopez", "Carlos", "Mitre 789", "Merlo", 2657501599l));
+            Contacto c1 = new Contacto(12345678, "Juan", "Perez", "San Luis", "San Martin 123", 123651198L);
+            Contacto c2 = new Contacto(87654321, "Maria", "Gomez", "Villa Mercedes", "Belgrano 456", 2657501242L);
+            Contacto c3 = new Contacto(45678912, "Carlos", "Lopez", "Merlo", "Mitre 789", 2657501599L);
+            
+            listaContactos.add(c1);
+            listaContactos.add(c2);
+            listaContactos.add(c3);
+            
+            // Agregar también al directorio
+            AccesoDatos.DirectorioTelefonico.DIRECTORIO.agregarContacto(123651198L, c1);
+            AccesoDatos.DirectorioTelefonico.DIRECTORIO.agregarContacto(2657501242L, c2);
+            AccesoDatos.DirectorioTelefonico.DIRECTORIO.agregarContacto(2657501599L, c3);
     }
 
     /**
