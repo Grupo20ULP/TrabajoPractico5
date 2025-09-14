@@ -57,7 +57,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMIagregarCiudades = new javax.swing.JMenuItem();
         jMsalir = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -131,6 +131,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMciudades);
 
         jMsalir.setText("Salir");
+        jMsalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMsalirMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMsalir);
 
         setJMenuBar(jMenuBar1);
@@ -202,6 +207,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btpa.setVisible(true);
         escritorio.add(btpa);
     }//GEN-LAST:event_jMIbuscarTelefonoPorApellidoActionPerformed
+
+    private void jMsalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMsalirMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMsalirMouseClicked
 
     /**
      * @param args the command line arguments
