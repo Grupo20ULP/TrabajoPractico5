@@ -238,7 +238,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     if (jlTelefonos.getSelectedIndex() != -1) {
         String telefonoSeleccionado = (String) jlTelefonos.getSelectedValue();
-        try {
+        
             long tel = Long.parseLong(telefonoSeleccionado);
             Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
 
@@ -249,13 +249,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                 jtfDomicilio.setText(c.getDireccion());
                 jtfCiudad.setText(c.getCiudad());
             } 
-        } catch (NumberFormatException ex) {
-            jtfDni.setText("");
-            jtfNombre.setText("");
-            jtfApellido.setText("");
-            jtfDomicilio.setText("");
-            jtfCiudad.setText("");
-        }
+        
     } 
     }//GEN-LAST:event_jlTelefonosMouseClicked
 
