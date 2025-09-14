@@ -228,45 +228,6 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private void jtfTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyReleased
 //         TODO add your handling code here:
     llenarLista();
-    String texto = jtfTelefono.getText().trim();
-
-//    if (!texto.isEmpty()) {
-//        try {
-//            long tel = Long.parseLong(texto); // convierto el texto a número
-//            Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
-//
-//            if (c != null) {
-//                // Si existe el contacto, muestro los datos en los JTextField
-//                jtfDni.setText(String.valueOf(c.getDni()));
-//                jtfNombre.setText(c.getNombre());
-//                jtfApellido.setText(c.getApellido());
-//                jtfDomicilio.setText(c.getDireccion());
-//                jtfCiudad.setText(c.getCiudad());
-//            } else {
-//                // Si no existe, limpio o muestro mensaje
-//                jtfDni.setText("");
-//                jtfNombre.setText("");
-//                jtfApellido.setText("");
-//                jtfDomicilio.setText("");
-//                jtfCiudad.setText("");
-//            }
-//        } catch (NumberFormatException ex) {
-//            // Si el usuario escribió letras u otra cosa
-//            jtfDni.setText("");
-//            jtfNombre.setText("");
-//            jtfApellido.setText("");
-//            jtfDomicilio.setText("");
-//            jtfCiudad.setText("");
-//        }
-//    } else {
-//        // Si borró todo el campo, limpio también
-//        jtfDni.setText("");
-//        jtfNombre.setText("");
-//        jtfApellido.setText("");
-//        jtfDomicilio.setText("");
-//        jtfCiudad.setText("");
-//    }
-    
     }//GEN-LAST:event_jtfTelefonoKeyReleased
 
     private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
@@ -278,11 +239,10 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     if (jlTelefonos.getSelectedIndex() != -1) {
         String telefonoSeleccionado = (String) jlTelefonos.getSelectedValue();
         try {
-            long tel = Long.parseLong(telefonoSeleccionado); // convierto el texto a número
+            long tel = Long.parseLong(telefonoSeleccionado);
             Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
 
             if (c != null) {
-                // Si existe el contacto, muestro los datos en los JTextField
                 jtfDni.setText(String.valueOf(c.getDni()));
                 jtfNombre.setText(c.getNombre());
                 jtfApellido.setText(c.getApellido());
@@ -290,8 +250,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                 jtfCiudad.setText(c.getCiudad());
             } 
         } catch (NumberFormatException ex) {
-            // Si el usuario escribió letras u otra cosa
-            jtfDni.setText(" ");
+            jtfDni.setText("");
             jtfNombre.setText("");
             jtfApellido.setText("");
             jtfDomicilio.setText("");
