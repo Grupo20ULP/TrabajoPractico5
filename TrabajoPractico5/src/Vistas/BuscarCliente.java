@@ -7,6 +7,7 @@ package Vistas;
 import Entidad.Contacto;
 import Vistas.MenuPrincipal;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,6 +140,11 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jlTelefonos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlTelefonosMouseClicked(evt);
+            }
+        });
         jlTelefonos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jlTelefonosValueChanged(evt);
@@ -224,9 +230,55 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     llenarLista();
     String texto = jtfTelefono.getText().trim();
 
-    if (!texto.isEmpty()) {
+//    if (!texto.isEmpty()) {
+//        try {
+//            long tel = Long.parseLong(texto); // convierto el texto a número
+//            Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
+//
+//            if (c != null) {
+//                // Si existe el contacto, muestro los datos en los JTextField
+//                jtfDni.setText(String.valueOf(c.getDni()));
+//                jtfNombre.setText(c.getNombre());
+//                jtfApellido.setText(c.getApellido());
+//                jtfDomicilio.setText(c.getDireccion());
+//                jtfCiudad.setText(c.getCiudad());
+//            } else {
+//                // Si no existe, limpio o muestro mensaje
+//                jtfDni.setText("");
+//                jtfNombre.setText("");
+//                jtfApellido.setText("");
+//                jtfDomicilio.setText("");
+//                jtfCiudad.setText("");
+//            }
+//        } catch (NumberFormatException ex) {
+//            // Si el usuario escribió letras u otra cosa
+//            jtfDni.setText("");
+//            jtfNombre.setText("");
+//            jtfApellido.setText("");
+//            jtfDomicilio.setText("");
+//            jtfCiudad.setText("");
+//        }
+//    } else {
+//        // Si borró todo el campo, limpio también
+//        jtfDni.setText("");
+//        jtfNombre.setText("");
+//        jtfApellido.setText("");
+//        jtfDomicilio.setText("");
+//        jtfCiudad.setText("");
+//    }
+    
+    }//GEN-LAST:event_jtfTelefonoKeyReleased
+
+    private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlTelefonosValueChanged
+
+    private void jlTelefonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlTelefonosMouseClicked
+        // TODO add your handling code here:
+    if (jlTelefonos.getSelectedIndex() != -1) {
+        String telefonoSeleccionado = (String) jlTelefonos.getSelectedValue();
         try {
-            long tel = Long.parseLong(texto); // convierto el texto a número
+            long tel = Long.parseLong(telefonoSeleccionado); // convierto el texto a número
             Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
 
             if (c != null) {
@@ -236,36 +288,17 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
                 jtfApellido.setText(c.getApellido());
                 jtfDomicilio.setText(c.getDireccion());
                 jtfCiudad.setText(c.getCiudad());
-            } else {
-                // Si no existe, limpio o muestro mensaje
-                jtfDni.setText("");
-                jtfNombre.setText("");
-                jtfApellido.setText("");
-                jtfDomicilio.setText("");
-                jtfCiudad.setText("");
-            }
+            } 
         } catch (NumberFormatException ex) {
             // Si el usuario escribió letras u otra cosa
-            jtfDni.setText("");
+            jtfDni.setText(" ");
             jtfNombre.setText("");
             jtfApellido.setText("");
             jtfDomicilio.setText("");
             jtfCiudad.setText("");
         }
-    } else {
-        // Si borró todo el campo, limpio también
-        jtfDni.setText("");
-        jtfNombre.setText("");
-        jtfApellido.setText("");
-        jtfDomicilio.setText("");
-        jtfCiudad.setText("");
-    }
-    
-    }//GEN-LAST:event_jtfTelefonoKeyReleased
-
-    private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlTelefonosValueChanged
+    } 
+    }//GEN-LAST:event_jlTelefonosMouseClicked
 
     private void llenarLista () {
         modeloLista.clear();
