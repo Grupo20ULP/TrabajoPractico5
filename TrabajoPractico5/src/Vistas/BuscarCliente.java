@@ -6,9 +6,8 @@ package Vistas;
 
 import Entidad.Contacto;
 import Vistas.MenuPrincipal;
-import java.util.Set;
-import java.util.function.Consumer;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +16,6 @@ import javax.swing.DefaultListModel;
 public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private DefaultListModel<String> modeloLista = new DefaultListModel<>();
-
     /**
      * Creates new form BuscarCliente
      */
@@ -25,7 +23,7 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         initComponents();
         llenarLista();
         jlTelefonos.setModel(modeloLista);
-
+        
     }
 
     /**
@@ -78,12 +76,6 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Domicilio:");
-
-        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtfApellidoKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -147,6 +139,11 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
             String[] strings = { "", "", "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jlTelefonos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlTelefonosMouseClicked(evt);
+            }
         });
         jlTelefonos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -230,57 +227,33 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
 
     private void jtfTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyReleased
 //         TODO add your handling code here:
-        llenarLista();
-        String texto = jtfTelefono.getText().trim();
-
-        if (!texto.isEmpty()) {
-            try {
-                long tel = Long.parseLong(texto); // convierto el texto a número
-                Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
-
-                if (c != null) {
-                    // Si existe el contacto, muestro los datos en los JTextField
-                    jtfDni.setText(String.valueOf(c.getDni()));
-                    jtfNombre.setText(c.getNombre());
-                    jtfApellido.setText(c.getApellido());
-                    jtfDomicilio.setText(c.getDireccion());
-                    jtfCiudad.setText(c.getCiudad());
-                } else {
-                    // Si no existe, limpio o muestro mensaje
-                    jtfDni.setText("");
-                    jtfNombre.setText("");
-                    jtfApellido.setText("");
-                    jtfDomicilio.setText("");
-                    jtfCiudad.setText("");
-                }
-            } catch (NumberFormatException ex) {
-                // Si el usuario escribió letras u otra cosa
-                jtfDni.setText("");
-                jtfNombre.setText("");
-                jtfApellido.setText("");
-                jtfDomicilio.setText("");
-                jtfCiudad.setText("");
-            }
-        } else {
-            // Si borró todo el campo, limpio también
-            jtfDni.setText("");
-            jtfNombre.setText("");
-            jtfApellido.setText("");
-            jtfDomicilio.setText("");
-            jtfCiudad.setText("");
-        }
-
+    llenarLista();
     }//GEN-LAST:event_jtfTelefonoKeyReleased
 
     private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jlTelefonosValueChanged
 
-    private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
+    private void jlTelefonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlTelefonosMouseClicked
+        // TODO add your handling code here:
+    if (jlTelefonos.getSelectedIndex() != -1) {
+        String telefonoSeleccionado = (String) jlTelefonos.getSelectedValue();
+        
+            long tel = Long.parseLong(telefonoSeleccionado);
+            Entidad.Contacto c = AccesoDatos.DirectorioTelefonico.DIRECTORIO.buscarContacto(tel);
 
-    }//GEN-LAST:event_jtfApellidoKeyReleased
+            if (c != null) {
+                jtfDni.setText(String.valueOf(c.getDni()));
+                jtfNombre.setText(c.getNombre());
+                jtfApellido.setText(c.getApellido());
+                jtfDomicilio.setText(c.getDireccion());
+                jtfCiudad.setText(c.getCiudad());
+            } 
+        
+    } 
+    }//GEN-LAST:event_jlTelefonosMouseClicked
 
-    private void llenarLista() {
+    private void llenarLista () {
         modeloLista.clear();
         String tel = jtfTelefono.getText();
         for (Contacto c : MenuPrincipal.listaContactos) {
@@ -311,3 +284,4 @@ public class BuscarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfTelefono;
     // End of variables declaration//GEN-END:variables
 }
+

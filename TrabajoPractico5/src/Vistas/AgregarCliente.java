@@ -251,7 +251,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             nuevoCliente.setApellido(apellido);
             nuevoCliente.setCiudad(ciudad);
             nuevoCliente.setDireccion(direccion);
-//            nuevoCliente.setTelefono(telefono);
+            nuevoCliente.setTelefono(telefono);
             MenuPrincipal.listaContactos.add(nuevoCliente);
             boolean ok = AccesoDatos.DirectorioTelefonico.DIRECTORIO.
                 agregarContacto(telefono, nuevoCliente);

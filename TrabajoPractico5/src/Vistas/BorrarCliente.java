@@ -6,6 +6,7 @@ package Vistas;
 
 import Entidad.Contacto;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,35 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         armarTabla();
         llenarlista();
         jlCliente.setModel(modelolista);
+        jlCliente.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { 
+                mostrar();
+            }
+        });
+    }
+    
+    private void mostrar() {
+            modeloTabla.setRowCount(0);
+        int selectedIndex = jlCliente.getSelectedIndex();
+            if (selectedIndex == -1) {
+                return;
+            }
+        
+        String dniSeleccionado = modelolista.getElementAt(selectedIndex);
+        int dni = Integer.parseInt(dniSeleccionado);
+            Contacto clienteBuscar = new Contacto(dni, null, null, null, null, null);
+            Contacto clienteEncontrado = MenuPrincipal.listaContactos.floor(clienteBuscar);
+        if (clienteEncontrado != null && clienteEncontrado.getDni() == dni) {
+            Object[] fila = {
+                clienteEncontrado.getDni(),
+                clienteEncontrado.getApellido(),
+                clienteEncontrado.getNombre(),
+                clienteEncontrado.getDireccion(),
+                clienteEncontrado.getCiudad(),
+                clienteEncontrado.getTelefono()
+            };
+            modeloTabla.addRow(fila);
+        }
     }
 
     /**
@@ -48,6 +78,8 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jtabClientes = new javax.swing.JTable();
         jbBorrarCliente = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(900, 432));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Borrar Cliente");
@@ -118,6 +150,11 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtabClientes);
 
         jbBorrarCliente.setText("Borrar Cliente/s");
+        jbBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarClienteActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +174,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbBorrarCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,6 +227,25 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
 //            }
 //        }
     }//GEN-LAST:event_jtfDniKeyReleased
+
+    private void jbBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarClienteActionPerformed
+        // TODO add your handling code here:
+        if (jlCliente.getSelectedIndex() != -1) {
+            String dniSeleccionado = (String) jlCliente.getSelectedValue();
+            int dni = Integer.parseInt(dniSeleccionado);
+                Contacto Busqueda = new Contacto(dni, null, null, null, null, null);
+            if (MenuPrincipal.listaContactos.contains(Busqueda)) {
+                    MenuPrincipal.listaContactos.remove(Busqueda);
+                    DefaultListModel modelo = (DefaultListModel) jlCliente.getModel();
+                    modelo.removeElementAt(jlCliente.getSelectedIndex());
+                    JOptionPane.showMessageDialog(this, "El cliente ya no existe mas en tu vida... y en el programa   ◕⩊◕","EXITO", JOptionPane.INFORMATION_MESSAGE);
+            }   else {
+                    JOptionPane.showMessageDialog(this, "Esa persona no existe por el momento... ","IMPORTANTE", JOptionPane.WARNING_MESSAGE);
+                }
+        }       else {
+                    JOptionPane.showMessageDialog(this, "Fijate bien, me parece que no seleccionaste el cliente para borrarlo   ╭∩╮（︶︿︶）╭∩╮", "Errorazo", JOptionPane.ERROR_MESSAGE);
+                }
+    }//GEN-LAST:event_jbBorrarClienteActionPerformed
     public void armarTabla () {
         modeloTabla.addColumn("DNI");
         modeloTabla.addColumn("Apellido");
