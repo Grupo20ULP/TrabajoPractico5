@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import Entidad.Contacto;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Federico_Galan abate
@@ -15,6 +19,8 @@ public class BuscarTelefonoPorApellido extends javax.swing.JInternalFrame {
      */
     public BuscarTelefonoPorApellido() {
         initComponents();
+        configurarSeleccionTabla();
+        cargarTodosContactos(); // para mostrar todos al inicio
     }
 
     /**
@@ -64,10 +70,26 @@ public class BuscarTelefonoPorApellido extends javax.swing.JInternalFrame {
             }
         });
 
+        jtfApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfApellidoActionPerformed(evt);
+            }
+        });
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyReleased(evt);
+            }
+        });
+
         jlTelefonos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jlTelefonos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jlTelefonosValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(jlTelefonos);
 
@@ -144,6 +166,111 @@ public class BuscarTelefonoPorApellido extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
+        String texto = jtfApellido.getText().trim().toLowerCase();
+
+        // Obtenemos el modelo de la tabla existente
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtabClientes.getModel();
+        modelo.setRowCount(0); // Limpiamos las filas actuales
+
+        // Si el campo esta vacio, entonces mostramos todos
+        if (texto.isEmpty()) {
+            for (Contacto c : MenuPrincipal.listaContactos) {
+                modelo.addRow(new Object[]{
+                    c.getDni(),
+                    c.getApellido(),
+                    c.getNombre(),
+                    c.getDireccion(),
+                    c.getCiudad(),
+                    c.getTelefono()
+                });
+            }
+        } else {
+            // Si hay texto, mostramos solo los que coinciden
+            for (Contacto c : MenuPrincipal.listaContactos) {
+                if (c.getApellido().toLowerCase().contains(texto)) {
+                    modelo.addRow(new Object[]{
+                        c.getDni(),
+                        c.getApellido(),
+                        c.getNombre(),
+                        c.getDireccion(),
+                        c.getCiudad(),
+                        c.getTelefono()
+                    });
+                }
+            }
+        }
+
+    }//GEN-LAST:event_jtfApellidoKeyReleased
+    // Cargar todos los contactos al inicio
+    private void cargarTodosContactos() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) jtabClientes.getModel();
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+        modeloTabla.setRowCount(0); // limpiar tabla
+
+        for (Contacto c : MenuPrincipal.listaContactos) {
+            // Agregamos a la tabla
+            modeloTabla.addRow(new Object[]{
+                c.getDni(),
+                c.getApellido(),
+                c.getNombre(),
+                c.getDireccion(),
+                c.getCiudad(),
+                c.getTelefono()
+            });
+
+            // Agregamos apellidos al JList (sin duplicados)
+            if (!modeloLista.contains(c.getApellido())) {
+                modeloLista.addElement(c.getApellido());
+            }
+        }
+
+        jlTelefonos.setModel(modeloLista);
+    }
+
+    // Configuro para que al seleccionar una fila en la tabla, la lista de telefonos muestre ese contacto
+    private void configurarSeleccionTabla() {
+        jtabClientes.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = jtabClientes.getSelectedRow();
+                if (fila != -1) {
+                    DefaultListModel<String> modeloLista = new DefaultListModel<>();
+                    String telefono = jtabClientes.getValueAt(fila, 5).toString();
+                    modeloLista.addElement(telefono);
+                    jlTelefonos.setModel(modeloLista);
+                }
+            }
+        });
+    }
+    private void jtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfApellidoActionPerformed
+
+    }//GEN-LAST:event_jtfApellidoActionPerformed
+
+    private void jlTelefonosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlTelefonosValueChanged
+        if (!evt.getValueIsAdjusting()) {
+            String apellidoSeleccionado = jlTelefonos.getSelectedValue();
+
+            if (apellidoSeleccionado != null) {
+                DefaultTableModel modeloTabla = (DefaultTableModel) jtabClientes.getModel();
+                modeloTabla.setRowCount(0); // limpiar tabla
+
+                for (Contacto c : MenuPrincipal.listaContactos) {
+                    if (c.getApellido().equalsIgnoreCase(apellidoSeleccionado)) {
+                        modeloTabla.addRow(new Object[]{
+                            c.getDni(),
+                            c.getApellido(),
+                            c.getNombre(),
+                            c.getDireccion(),
+                            c.getCiudad(),
+                            c.getTelefono()
+                        });
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jlTelefonosValueChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -156,4 +283,5 @@ public class BuscarTelefonoPorApellido extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtabClientes;
     private javax.swing.JTextField jtfApellido;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.lang.Long;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -80,6 +81,10 @@ public class DirectorioTelefonico {
     public TreeMap<Long, Contacto> getAgenda() {
     return agenda;
     }   
+
+    public List<Contacto> buscarPorApellido(String texto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
 
