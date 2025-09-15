@@ -252,7 +252,6 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
             nuevoCliente.setCiudad(ciudad);
             nuevoCliente.setDireccion(direccion);
             nuevoCliente.setTelefono(telefono);
-            MenuPrincipal.listaContactos.add(nuevoCliente);
             boolean ok = AccesoDatos.DirectorioTelefonico.DIRECTORIO.
                 agregarContacto(telefono, nuevoCliente);
             if ( ! ok) {
@@ -260,6 +259,7 @@ public class AgregarCliente extends javax.swing.JInternalFrame {
                     "El telefono ya existe");
             }
             else {
+                MenuPrincipal.listaContactos.add(nuevoCliente);
                 javax.swing.JOptionPane.showMessageDialog(this,
                     "Contacto guardado");
                 limpiar();
