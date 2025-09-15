@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Federico_Galan abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class BuscarCliente extends javax.swing.JInternalFrame {
 

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Federico_Galan abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class BorrarCliente extends javax.swing.JInternalFrame {
 

@@ -8,7 +8,7 @@ import Entidad.Contacto;
 import java.util.TreeSet;
 /**
  *
- * @author Federico_Galan abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     public static TreeSet<Contacto> listaContactos = new TreeSet<>();

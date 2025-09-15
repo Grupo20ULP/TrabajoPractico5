@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Federico_Galan abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class Contacto implements Comparable<Contacto>{
     private int dni;

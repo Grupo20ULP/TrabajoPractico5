@@ -8,7 +8,7 @@ import Vistas.MenuPrincipal;
 
 /**
  *
- * @author abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class TrabajoPractico5 {
 

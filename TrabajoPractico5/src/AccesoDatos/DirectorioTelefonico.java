@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author Federico_Galan abate
+ * @author Federico_Galan, Tomas Abatedaga, Heber Gomez, Lucas Carreño, Nehuen Zerda, Juan Carreras
  */
 public class DirectorioTelefonico {
     private TreeMap<Long,Contacto> agenda = new TreeMap<>();
