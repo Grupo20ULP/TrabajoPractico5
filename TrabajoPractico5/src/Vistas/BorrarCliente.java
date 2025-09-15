@@ -218,14 +218,7 @@ public class BorrarCliente extends javax.swing.JInternalFrame {
     private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
 // TODO add your handling code here:
         llenarlista();
-//        String filtrodni = jtfDni.getText().
-//            trim();
-//        modelolista.clear();
-//        for (Contacto cucu : MenuPrincipal.listaContactos) {
-//            if (String.valueOf(cucu.getDni()).startsWith(filtrodni)) {
-//                modelolista.addElement(String.valueOf(cucu.getDni()));
-//            }
-//        }
+
     }//GEN-LAST:event_jtfDniKeyReleased
 
     private void jbBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarClienteActionPerformed
