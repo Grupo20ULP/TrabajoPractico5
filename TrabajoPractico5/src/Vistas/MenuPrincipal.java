@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vistas;
 
 import Entidad.Contacto;
@@ -16,6 +12,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         listaContactos.add(new Contacto(12345678, "Perez", "Juan", "San Martin 123", "San Luis", 123651198l));
         listaContactos.add(new Contacto(87654321, "Gomez", "Maria", "Belgrano 456", "Villa Mercedes", 2657501242l));
         listaContactos.add(new Contacto(45678912, "Lopez", "Carlos", "Mitre 789", "Merlo", 2657501599l));
+        listaContactos.add(new Contacto(45678912, "Ramirez", "Saul", "Lavalle 723", "Potrero", 2657501119l));
     }
 
     /**
